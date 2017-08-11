@@ -55,10 +55,7 @@ angular.module('starter.controllers', [])
 .controller('PlaylistCtrl', function($scope, $stateParams, $ionicPlatform, $timeout) {
 
   $scope.show = function () {
-      CordovaProgressIndicatorPlugin.show();
-    $timeout(function() {
-      CordovaProgressIndicatorPlugin.hide();
-    }, 2000);
+      CordovaPinPlugin.showPin();
   };
 
 });
