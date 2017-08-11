@@ -9,9 +9,11 @@ import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
+
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
-
 
 
 public class CordovaPinPlugin extends CordovaPlugin {
@@ -26,15 +28,15 @@ public class CordovaPinPlugin extends CordovaPlugin {
 
     public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
 
-          Context context = cordova.getActivity().getApplicationContext();
-               if(action.equals("showPin")) {
-                   this.openNewActivity(context);
-                   return true;
-               }
-               return false;
+        Context context = cordova.getActivity().getApplicationContext();
+        if (action.equals("showPin")) {
+            this.openNewActivity(context);
+            return true;
+        }
+        return false;
     }
 
- private void openNewActivity(Context context) {
+    private void openNewActivity(Context context) {
         Intent intent = new Intent(context, CordovaPinPluginActivity.class);
         this.cordova.getActivity().startActivity(intent);
     }
