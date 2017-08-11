@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        id="cordova-pin-plugin"
+        version="1.0.1">
+    <name>Cordova Pin Plugin</name>
+    <description>Cordova Plugin allowing to show native pin pad.</description>
+    <license>MIT</license>
+    <keywords>ios, android, cordova, plugin, pin, pad</keywords>
+    <repo>https://github.com/radvansky-tomas/CordovaProgressIndicatorPlugin.git</repo>
+    <issue>https://github.com/radvansky-tomas/CordovaProgressIndicatorPlugin/issues</issue>
+
+
+    <js-module name="CordovaPinPlugin" src="www/plugin.js">
+        <clobbers target="CordovaPinPlugin" />
+    </js-module>
+
+    <!-- android -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="CordovaPinPlugin">
+                <param name="android-package" value="com.cordova.plugins.CordovaPinPlugin"/>
+                <param name="onload" value="true"/>
+            </feature>
+
+        </config-file>
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <activity android:label="PIN" android:name="com.cordova.plugins.CordovaPinPluginActivity"></activity>
+        </config-file>
+        <config-file parent="/*" target="AndroidManifest.xml"></config-file>
+        <source-file src="src/android/com/cordova/plugins/CordovaPinPlugin.java"
+                     target-dir="src/com/cordova/plugins/"/>
+        <source-file src="src/android/com/cordova/plugins/CordovaPinPluginActivity.java"
+                     target-dir="src/com/cordova/plugins/"/>
+        <source-file src="src/android/com/cordova/plugins/cordova_pin_plugin_activity.xml"
+                     target-dir="res/layout"/>
+    </platform>
+</plugin>

@@ -1,0 +1,11 @@
+{
+  "name": "cordova-pin-plugin",
+  "version": "1.0.1",
+  "cordova": {
+    "id": "cordova-pin-plugin",
+    "platforms": [
+      "android"
+    ]
+  },
+  "description": "Cordova Plugin allowing to show native pin pad."
+}
