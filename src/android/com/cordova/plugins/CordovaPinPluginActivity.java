@@ -9,8 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.ionicframework.demo144774.R;
-
 public class CordovaPinPluginActivity extends Activity {
 
     private EditText pinEditText;
@@ -24,7 +22,8 @@ public class CordovaPinPluginActivity extends Activity {
         String package_name = getApplication().getPackageName();
         setContentView(getApplication().getResources().getIdentifier("cordova_pin_plugin_activity", "layout", package_name));
 
-        pinEditText = (EditText) findViewById(R.id.pinEditText);
+
+        pinEditText = (EditText) findViewById(getApplication().getResources().getIdentifier("pinEditText", "id", "android"));
         pinEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -49,8 +48,8 @@ public class CordovaPinPluginActivity extends Activity {
             }
         });
 
-        button1 = (Button) findViewById(R.id.button1);
-        button2 = (Button) findViewById(R.id.button2);
+        button1 = (Button) findViewById(getApplication().getResources().getIdentifier("button1", "id", "android"));
+        button2 = (Button) findViewById(getApplication().getResources().getIdentifier("button2", "id", "android"));
 
         Bundle b = this.getIntent().getExtras();
         if (b != null) {
