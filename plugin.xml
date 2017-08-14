@@ -25,7 +25,7 @@
 
         </config-file>
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
-            <activity android:label="PIN" android:name="com.cordova.plugins.CordovaPinPluginActivity"></activity>
+            <activity android:label="PIN" android:name="com.cordova.plugins.CordovaPinPluginActivity" android:windowSoftInputMode="adjustResize"></activity>
         </config-file>
         <config-file parent="/*" target="AndroidManifest.xml"></config-file>
         <source-file src="src/android/com/cordova/plugins/CordovaPinPlugin.java"

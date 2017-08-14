@@ -62,8 +62,10 @@ angular.module('starter.controllers', [])
       };
       CordovaPinPlugin.showPin(pinConfig, function (success) {
         console.log(success);
+        CordovaPinPlugin.closePin();
       }, function (error) {
         console.log(error);
+        CordovaPinPlugin.closePin();
       });
     };
 

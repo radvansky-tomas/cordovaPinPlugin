@@ -26,6 +26,8 @@ public class CordovaPinPlugin extends CordovaPlugin {
     private CordovaInterface cordova;
     private CallbackContext callbackContext;
 
+    int PIN_ACTIVITY_CODE = 100;
+
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
         super.initialize(cordova, webView);
         this.cordova = cordova;
@@ -42,7 +44,12 @@ public class CordovaPinPlugin extends CordovaPlugin {
         this.callbackContext = callbackContext;
 
         if (action.equals("showPin")) {
-            this.openNewActivity(context, "Enter your pin", "Login", "Cancel");
+            this.openNewActivity(context, args.getJSONObject(0).getString("hint"), args.getJSONObject(0).getString("button1"), args.getJSONObject(0).getString("button2"));
+            return true;
+        }
+
+        if (action.equals("closePin")) {
+            cordova.getActivity().finishActivity(PIN_ACTIVITY_CODE);
             return true;
         }
 
@@ -61,14 +68,13 @@ public class CordovaPinPlugin extends CordovaPlugin {
             intent.putExtra("button2", button2);
         }
 
-        this.cordova.getActivity().startActivityForResult(intent, 100);
+        this.cordova.getActivity().startActivityForResult(intent, PIN_ACTIVITY_CODE);
     }
 
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             Toast.makeText(cordova.getActivity(), "received", Toast.LENGTH_SHORT).show();
-            cordova.getActivity().finishActivity(100);
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
