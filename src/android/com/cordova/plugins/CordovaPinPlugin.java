@@ -39,6 +39,12 @@ public class CordovaPinPlugin extends CordovaPlugin {
 
     }
 
+    @Override
+    public void onDestroy() {
+        cordova.getActivity().getApplicationContext().unregisterReceiver(receiver);
+        super.onDestroy();
+    }
+
     public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
 
         Context context = cordova.getActivity().getApplicationContext();
@@ -51,6 +57,13 @@ public class CordovaPinPlugin extends CordovaPlugin {
 
         if (action.equals("closePin")) {
             cordova.getActivity().finishActivity(PIN_ACTIVITY_CODE);
+            return true;
+        }
+
+        if (action.equals("clearPin")) {
+            Intent broadcast = new Intent();
+            broadcast.setAction("CLEAR_PIN");
+            cordova.getActivity().getApplicationContext().sendBroadcast(broadcast);
             return true;
         }
 

@@ -1,14 +1,22 @@
 package com.cordova.plugins;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import org.apache.cordova.PluginResult;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class CordovaPinPluginActivity extends Activity {
 
@@ -20,6 +28,10 @@ public class CordovaPinPluginActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("CLEAR_PIN");
+        registerReceiver(receiver, filter);
+
         String package_name = getApplication().getPackageName();
         Resources resources = getApplication().getResources();
 
@@ -109,5 +121,25 @@ public class CordovaPinPluginActivity extends Activity {
     @Override
     public void onBackPressed() {
         //Disable back
+    }
+
+    private BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, final Intent intent) {
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    pinEditText.setText("");
+                }
+            }, 50);
+
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(receiver);
+        super.onDestroy();
     }
 }
