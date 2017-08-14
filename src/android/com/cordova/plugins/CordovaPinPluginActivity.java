@@ -41,7 +41,7 @@ public class CordovaPinPluginActivity extends Activity {
                 if (s.length() == PIN_LENGTH) {
                     Intent broadcast = new Intent();
                     broadcast.setAction("PIN");
-                    broadcast.putExtra(pinEditText.getText().toString(), "PIN");
+                    broadcast.putExtra("PIN",s.toString());
                     broadcast.putExtra("Button", 0);
                     sendBroadcast(broadcast);
                     pinEditText.setText("");
@@ -68,7 +68,7 @@ public class CordovaPinPluginActivity extends Activity {
                         Intent broadcast = new Intent();
                         broadcast.setAction("PIN");
                         broadcast.putExtra("Button", 1);
-                        broadcast.putExtra(pinEditText.getText().toString(), "PIN");
+                        broadcast.putExtra("PIN",pinEditText.getText().toString());
                         sendBroadcast(broadcast);
                     }
                 });
@@ -86,7 +86,7 @@ public class CordovaPinPluginActivity extends Activity {
                         Intent broadcast = new Intent();
                         broadcast.setAction("PIN");
                         broadcast.putExtra("Button", 2);
-                        broadcast.putExtra(pinEditText.getText().toString(), "PIN");
+                        broadcast.putExtra("PIN",pinEditText.getText().toString());
                         sendBroadcast(broadcast);
                     }
                 });
