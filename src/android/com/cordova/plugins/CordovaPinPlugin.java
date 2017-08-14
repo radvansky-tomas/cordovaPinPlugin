@@ -9,6 +9,7 @@ import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -73,13 +74,22 @@ public class CordovaPinPlugin extends CordovaPlugin {
 
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
-        public void onReceive(Context context, Intent intent) {
-            Toast.makeText(cordova.getActivity(), "received", Toast.LENGTH_SHORT).show();
+        public void onReceive(Context context, final Intent intent) {
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    callbackContext.success(1);
+                    JSONObject data = new JSONObject();
+                    try {
+                        data.put("button",intent.getIntExtra("Button",0));
+                        data.put("pin",intent.getStringExtra("PIN"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    PluginResult result = new PluginResult(PluginResult.Status.OK,data);
+                    result.setKeepCallback(true);
+                    callbackContext.sendPluginResult(result);
+                    //callbackContext.success(data);
                 }
             }, 200);
 
