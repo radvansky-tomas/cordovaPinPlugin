@@ -2,6 +2,7 @@ package com.cordova.plugins;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,10 +21,12 @@ public class CordovaPinPluginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         String package_name = getApplication().getPackageName();
-        setContentView(getApplication().getResources().getIdentifier("cordova_pin_plugin_activity", "layout", package_name));
+        Resources resources = getApplication().getResources();
+
+        setContentView(resources.getIdentifier("cordova_pin_plugin_activity", "layout", package_name));
 
 
-        pinEditText = (EditText) findViewById(getApplication().getResources().getIdentifier("pinEditText", "id", "android"));
+        pinEditText = (EditText) findViewById(getResource("pinEditText", "id"));
         pinEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -48,8 +51,8 @@ public class CordovaPinPluginActivity extends Activity {
             }
         });
 
-        button1 = (Button) findViewById(getApplication().getResources().getIdentifier("button1", "id", "android"));
-        button2 = (Button) findViewById(getApplication().getResources().getIdentifier("button2", "id", "android"));
+        button1 = (Button) findViewById(getResource("button1", "id"));
+        button2 = (Button) findViewById(getResource("button2", "id"));
 
         Bundle b = this.getIntent().getExtras();
         if (b != null) {
@@ -94,6 +97,13 @@ public class CordovaPinPluginActivity extends Activity {
                 button2.setText("");
             }
         }
+    }
+
+    private int getResource(String name, String category) {
+        String package_name = getApplication().getPackageName();
+        Resources resources = getApplication().getResources();
+
+        return resources.getIdentifier(name, category, package_name);
     }
 
     @Override
