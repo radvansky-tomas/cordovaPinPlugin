@@ -51,7 +51,28 @@ public class CordovaPinPlugin extends CordovaPlugin {
         this.callbackContext = callbackContext;
 
         if (action.equals("showPin")) {
-            this.openNewActivity(context, args.getJSONObject(0).getString("hint"), args.getJSONObject(0).getString("button1"), args.getJSONObject(0).getString("button2"));
+            String hint = null;
+            String button1 = null;
+            String button2 = null;
+
+            try {
+                hint = args.getJSONObject(0).getString("hint");
+            } catch (Exception ex) {
+
+            }
+
+            try {
+                button1 = args.getJSONObject(0).getString("button1");
+            } catch (Exception ex) {
+
+            }
+
+            try {
+                button2 = args.getJSONObject(0).getString("button2");
+            } catch (Exception ex) {
+
+            }
+            this.openNewActivity(context, hint, button1, button2);
             return true;
         }
 
@@ -94,12 +115,12 @@ public class CordovaPinPlugin extends CordovaPlugin {
                 public void run() {
                     JSONObject data = new JSONObject();
                     try {
-                        data.put("button",intent.getIntExtra("Button",0));
-                        data.put("pin",intent.getStringExtra("PIN"));
+                        data.put("button", intent.getIntExtra("Button", 0));
+                        data.put("pin", intent.getStringExtra("PIN"));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    PluginResult result = new PluginResult(PluginResult.Status.OK,data);
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, data);
                     result.setKeepCallback(true);
                     callbackContext.sendPluginResult(result);
                     //callbackContext.success(data);
@@ -109,14 +130,12 @@ public class CordovaPinPlugin extends CordovaPlugin {
         }
     };
 
-    public Bundle onSaveInstanceState()
-    {
+    public Bundle onSaveInstanceState() {
         Bundle state = new Bundle();
         return state;
     }
 
-    public void onRestoreStateForActivityResult(Bundle state, CallbackContext callbackContext)
-    {
+    public void onRestoreStateForActivityResult(Bundle state, CallbackContext callbackContext) {
         this.callbackContext = callbackContext;
     }
 
